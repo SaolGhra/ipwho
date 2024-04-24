@@ -31,3 +31,34 @@ p {
     border-radius: 8px;
     border: 1px solid #ccc;
 }
+
+/* Dark Mode Toggle */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+
+.dark-mode-toggle button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.dark-mode-toggle svg {
+    fill: #000;
+}
+
+.dark-mode-toggle button:focus {
+    outline: none;
+}
+
+.dark-mode {
+    background-color: #222;
+    color: #fff;
+}
+
+.dark-mode-toggle.dark-mode svg {
+    fill: #fff;
+}

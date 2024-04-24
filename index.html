@@ -8,13 +8,22 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
+    <div class="dark-mode-toggle">
+        <button id="dark-mode-button" onclick="toggleDarkMode()">
+            <img id="sun-icon" src="assets/sun.svg" width="24" height="24" style="display:inline-block">
+            <img id="moon-icon" src="assets/moon.svg" width="24" height="24" style="display:none">
+        </button>
+    </div>
+    
     <div class="container">
         <h1>What's My IP?</h1>
         <p>Your IPv4 Address is: <span id="ipv4-address">Loading...</span></p>
         <p>Your IPv6 Address is: <span id="ipv6-address">Loading...</span></p>
+        <p>Your ISP is: <span id="isp">Loading...</span></p>
         <p>Your Location is: <span id="location">Loading...</span></p>
         <div id="map"></div>
     </div>
+
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="scripts/script.js"></script>
 </body>
