@@ -38,8 +38,16 @@ window.onload = function() {
         .catch(error => {
             console.error('Error fetching IPv4 address:', error);
         });
-};
+    const body = document.body;
+    const isDarkMode = getCookie('darkMode') === 'true';
 
+    // Apply dark mode preference from cookie
+    if (isDarkMode) {
+        body.classList.add('dark-mode');
+        document.getElementById('sun-icon').style.display = 'none';
+        document.getElementById('moon-icon').style.display = 'block';
+    }
+};
 
 // Initialize Map
 function initMap(latitude, longitude) {
@@ -49,7 +57,7 @@ function initMap(latitude, longitude) {
         .bindPopup('Your Location').openPopup();
 }
 
-// Toggle Dark Mode
+// Function to toggle dark mode
 function toggleDarkMode() {
     const body = document.body;
     const sunIcon = document.getElementById('sun-icon');
@@ -61,13 +69,21 @@ function toggleDarkMode() {
     // Toggle visibility of sun and moon icons
     sunIcon.style.display = sunIcon.style.display === 'none' ? 'block' : 'none';
     moonIcon.style.display = moonIcon.style.display === 'none' ? 'block' : 'none';
+
+    // Set dark mode preference in cookie
+    const isDarkMode = body.classList.contains('dark-mode');
+    setCookie('darkMode', isDarkMode ? 'true' : 'false', 365);
 }
 
-// cookies to remember dark mode
-function setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    const expires = 'expires=' + d.toUTCString();
-    const cookieString = cname + '=' + cvalue + ';' + expires + ';path=/;SameSite=Lax';
-    document.cookie = cookieString;
+// Function to set a cookie
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + expires.toUTCString();
+}
+
+// Function to get a cookie value by name
+function getCookie(name) {
+    const keyValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return keyValue ? keyValue[2] : null;
 }
