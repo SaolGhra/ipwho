@@ -13,8 +13,8 @@ window.onload = function() {
                     const ipv6Address = ipv6Data.ip;
                     document.getElementById('ipv6-address').innerText = ipv6Address;
 
-                    // Fetch Location Data
-                    fetch(`https://ipapi.co/${ipv4Address}/json/`)
+                    // Fetch Location Data using ipinfo.io API
+                    fetch(`https://ipinfo.io/${ipv4Address}/json`)
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error('Failed to fetch location data');
@@ -22,7 +22,7 @@ window.onload = function() {
                             return response.json();
                         })
                         .then(locationData => {
-                            const locationString = `${locationData.city}, ${locationData.region}, ${locationData.country_name}`;
+                            const locationString = `${locationData.city}, ${locationData.region}, ${locationData.country}`;
                             document.getElementById('location').innerText = locationString;
                     
                             // Fetch ISP Data
@@ -30,7 +30,7 @@ window.onload = function() {
                             document.getElementById('isp').innerText = ispInfo;
                     
                             // Show Map with User's Location
-                            initMap(locationData.latitude, locationData.longitude);
+                            initMap(locationData.loc.split(',')[0], locationData.loc.split(',')[1]);
                         })
                         .catch(error => {
                             console.error('Error fetching location data:', error);
@@ -43,6 +43,7 @@ window.onload = function() {
         .catch(error => {
             console.error('Error fetching IPv4 address:', error);
         });
+
     const body = document.body;
     const isDarkMode = getCookie('darkMode') === 'true';
 
