@@ -15,15 +15,20 @@ window.onload = function() {
 
                     // Fetch Location Data
                     fetch(`https://ipapi.co/${ipv4Address}/json/`)
-                        .then(response => response.json())
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to fetch location data');
+                            }
+                            return response.json();
+                        })
                         .then(locationData => {
                             const locationString = `${locationData.city}, ${locationData.region}, ${locationData.country_name}`;
                             document.getElementById('location').innerText = locationString;
-
+                    
                             // Fetch ISP Data
                             const ispInfo = locationData.org;
                             document.getElementById('isp').innerText = ispInfo;
-
+                    
                             // Show Map with User's Location
                             initMap(locationData.latitude, locationData.longitude);
                         })
