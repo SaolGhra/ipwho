@@ -10,7 +10,10 @@ window.onload = function() {
             fetch('https://api64.ipify.org?format=json')
                 .then(response => response.json())
                 .then(ipv6Data => {
-                    const ipv6Address = ipv6Data.ip;
+                    let ipv6Address = ipv6Data.ip;
+                    if (!ipv6Address || ipv6Address === ipv4Address) {
+                        ipv6Address = 'Not registered';
+                    }
                     document.getElementById('ipv6-address').innerText = ipv6Address;
 
                     // Fetch Location Data using ipinfo.io API
@@ -24,28 +27,16 @@ window.onload = function() {
                         .then(locationData => {
                             const locationString = `${locationData.city}, ${locationData.region}, ${locationData.country}`;
                             document.getElementById('location').innerText = locationString;
-
+                    
                             // Fetch ISP Data
                             const ispInfo = locationData.org;
                             document.getElementById('isp').innerText = ispInfo;
-
+                    
                             // Show Map with User's Location
                             initMap(locationData.loc.split(',')[0], locationData.loc.split(',')[1]);
                         })
                         .catch(error => {
                             console.error('Error fetching location data:', error);
-                        });
-
-                    // Fetch IPv6 Address
-                    fetch('https://api64.ipify.org?format=json')
-                        .then(response => response.json())
-                        .then(ipv6Data => {
-                            const ipv6Address = ipv6Data.ip;
-                            document.getElementById('ipv6-address').innerText = ipv6Address;
-                        })
-                        .catch(error => {
-                            console.error('Error fetching IPv6 address:', error);
-                            document.getElementById('ipv6-address').innerText = 'Not Registered';
                         });
                 })
                 .catch(error => {
