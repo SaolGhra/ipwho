@@ -47,6 +47,9 @@ window.onload = function() {
         document.getElementById('sun-icon').style.display = 'none';
         document.getElementById('moon-icon').style.display = 'block';
     }
+
+    console.log('Page loaded');
+    showCookiesModalIfNeeded();
 };
 
 // Initialize Map
@@ -86,4 +89,43 @@ function setCookie(name, value, days) {
 function getCookie(name) {
     const keyValue = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
     return keyValue ? keyValue[2] : null;
+}
+
+// Function to accept cookies
+function acceptCookies() {
+    setCookie('cookiesAccepted', 'true', 365);
+    console.log('Cookie accepted:', getCookie('cookiesAccepted'));
+    hideCookiesModal();
+}
+
+// Function to decline cookies
+function declineCookies() {
+    setCookie('cookiesAccepted', 'false', 365); 
+    console.log('Cookie declined:', getCookie('cookiesAccepted'));
+    hideCookiesModal(); 
+}
+
+// Function to hide cookies modal
+function hideCookiesModal() {
+    console.log('Hiding cookies modal');
+    document.getElementById('cookies-modal').style.display = 'none';
+}
+
+// Function to check if cookies have been accepted
+function checkCookiesAccepted() {
+    const accepted = getCookie('cookiesAccepted') === 'true';
+    console.log('Cookies accepted:', accepted);
+    return accepted;
+}
+
+// Function to show cookies modal if not accepted
+function showCookiesModalIfNeeded() {
+    console.log('Checking cookies acceptance');
+    if (!checkCookiesAccepted()) {
+        console.log('Cookies not accepted, showing modal');
+        document.getElementById('cookies-modal').style.display = 'block';
+    } else {
+        console.log('Cookies accepted, not showing modal');
+        document.getElementById('cookies-modal').style.display = 'none';
+    }
 }

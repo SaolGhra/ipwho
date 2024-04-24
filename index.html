@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
+    <!-- Cookies Modal -->
+    <div id="cookies-modal" class="cookies-modal">
+        <div class="cookies-content">
+            <p>This website uses cookies to enhance user experience. By clicking "Accept", you agree to our use of cookies.</p>
+            <div class="buttons">
+                <button onclick="acceptCookies()">Accept</button>
+                <button onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
     <div class="dark-mode-toggle">
         <button id="dark-mode-button" onclick="toggleDarkMode()">
             <img id="sun-icon" src="assets/sun.svg" width="24" height="24" style="display:inline-block">
@@ -15,6 +27,7 @@
         </button>
     </div>
     
+    <!-- Main Content -->
     <div class="container">
         <h1>What's My IP?</h1>
         <p>Your IPv4 Address is: <span id="ipv4-address">Loading...</span></p>
